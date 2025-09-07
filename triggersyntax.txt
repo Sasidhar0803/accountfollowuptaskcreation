@@ -1,9 +1,12 @@
 trigger AccountTrigger on Account (after insert) {
     for (Account acc : Trigger.new) {
         Task t = new Task(
-            Subject = 'Follow up on new account',
-            WhatId = acc.Id,
-            Status = 'Not Started'
+    Subject = 'Follow up on new account',
+    WhatId = acc.Id,
+    Status = 'Not Started',
+    ActivityDate = System.today().addDays(7) // due in 7 days
+);
+
         );
         insert t;
     }
